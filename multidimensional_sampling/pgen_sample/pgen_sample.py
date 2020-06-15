@@ -415,6 +415,12 @@ def get_custom_generator(env, **kwargs):
     :returns: A ParameterGenerator populated with parameters.
     """
     p_gen = ParameterGenerator()
+
+    LOGGER.info("pgen env:\n%s", str(env))
+    LOGGER.info("pgen type(env):\n%s", str(type(env)))
+    LOGGER.info("pgen kwargs:\n%s", str(kwargs))
+    LOGGER.info("pgen type(kwargs):\n%s", str(type(kwargs)))
+
     try:
         SAMPLE_DICTIONARY = kwargs.get(
             "sample_dictionary",
