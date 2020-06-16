@@ -1,15 +1,10 @@
 """This file implements several sampling methods"""
 
-import yaml
-import random
-import glob
-import time
-from math import *
 
 import logging
-from maestrowf.datastructures.core import ParameterGenerator
 
 LOGGER = logging.getLogger(__name__)
+
 
 def _log_assert(test, msg):
     if not(test):
@@ -63,6 +58,3 @@ def _convert_dict_to_maestro_params(samples):
         values = [sample[key] for sample in samples]
         parameters[key]["values"] = values
     return parameters
-
-
-
