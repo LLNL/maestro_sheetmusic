@@ -2,7 +2,12 @@
 
 import logging
 
-from maestrowf.datastructures.core import ParameterGenerator
+from contextlib import suppress
+
+MAESTROWF = False
+with suppress(ModuleNotFoundError):
+    from maestrowf.datastructures.core import ParameterGenerator
+    MAESTROWF = True
 
 from scisample.list import list_sample
 from scisample.cross_product import cross_product_sample
@@ -52,7 +57,10 @@ def samples(self):
     return samples
 
 
-def pgen(self):
+def maestro_pgen(self):
+    if not MAESTROWF:
+        raise ValueError("maestrowf is not installed\n" +
+                         "the maestro_pgen is not supported")
     if self._pgen is not None:
         return self._pgen
 
