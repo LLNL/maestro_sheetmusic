@@ -1,3 +1,9 @@
+# Work in progress:
+
+1. moving sample scripts to subdirectory
+1. support pgen and non-pgen sampling
+1. rename pgen_sample scisample
+
 # Multidimensional Sampling
 
 This repo contains a pgen script for maestro that implements several
@@ -9,10 +15,10 @@ specification. This yaml specification is a nested list named
 The pgen script is executed as follows
  
 ```
-maestro run {-y} --pgen ./pgen_sample.py {sample_list.yaml},
+maestro run [-y] --pgen ./pgen_sample.py {sample_list.yaml},
 ```
 
-where {-y} is an optional `auto-run` option, and `sample_list.yaml` is a maestro specification containing a `SAMPLE_DICTIONARY`.  
+where `[-y]` is an optional `auto-run` option, and `sample_list.yaml` is a maestro specification containing a `SAMPLE_DICTIONARY`.  
 
 `pgen_sample.py` currently supports four sampling modes:
 
@@ -21,12 +27,12 @@ where {-y} is an optional `auto-run` option, and `sample_list.yaml` is a maestro
 1. `cross_product`: see `sample_cross_product.yaml`
 1. `best_candidate`: see `sample_best_candidate.yaml`
 
-Note: the `best_candidate` sampling mode currently requires that maestro is installed from scratch in a virtual environment (see https://github.com/LLNL/maestrowf#setting-up-your-python-environment) and that the `pandas`, `scipy`, and `sklearn` packages be installed in that environment as well. Please see the `Installing Maestro, pandas, scipy, and sklearn in a virtual environment` section below. 
+Note: the `best_candidate` sampling mode currently requires that maestro is installed from scratch in a virtual environment (see Maestro [install documentation](https://github.com/LLNL/maestrowf#setting-up-your-python-environment)) and that the `pandas`, `scipy`, and `sklearn` packages be installed in that environment as well. Please see the [installing the necessary python packages](#installing-the-necessary-python-packages) section below. 
 
 ## The List Mode
 
 The `list` mode requires two items to be defined
-in`SAMPLE_DICTIONARY`:
+in `SAMPLE_DICTIONARY`:
 
 1. `sample_type` must equal `list`
 2. `constants` or `parameters` must contain at least one variable
@@ -180,9 +186,9 @@ global.parameters:
 
 ```
 
-## Installing Maestro, pandas, scipy, and sklearn in a virtual environment
+## Installing the necessary python packages
 
-Th `best_candidate` sampling mode currently requires that maestro is installed from scratch in a virtual environment (see https://github.com/LLNL/maestrowf#setting-up-your-python-environment) and that the `pandas`, `scipy`, and `sklearn` packages be installed in that environment as well. Below are the steps to take: 
+The `best_candidate` sampling mode currently requires that maestro is installed from scratch in a virtual environment (see Maestro [install documentation](https://github.com/LLNL/maestrowf#setting-up-your-python-environment)) and that the `pandas`, `scipy`, and `sklearn` packages be installed in that environment as well. Below are the steps to take: 
 
 ```
 # set install locations:
@@ -231,3 +237,4 @@ cd ${MAESTRO_INSTALL_DIRECTORY}
 date > maestro_sheetmusic_run_end.txt
 echo done
 ```
+

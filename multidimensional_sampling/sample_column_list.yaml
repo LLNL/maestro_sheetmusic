@@ -1,4 +1,4 @@
-# run with 'maestro run -y --pgen ./pgen_sample.py sample_column_list.yaml'
+# run with 'maestro run -y --pgen ./scisample/pgen_sample.py sample_column_list.yaml'
 
 description:
     name: sample_list
