@@ -9,7 +9,7 @@
 
 1. object: sample(dict)
 1. object.samples
-1. objeeeeeeeeeeeeeeeeeeeeeeecasd
+1. make extensible
 
 # Multidimensional Sampling
 
