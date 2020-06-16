@@ -1,5 +1,6 @@
 # Work in progress:
 
+1. setting up a full package
 1. moving sample scripts to subdirectory
 1. support pgen and non-pgen sampling
 1. rename pgen_sample scisample

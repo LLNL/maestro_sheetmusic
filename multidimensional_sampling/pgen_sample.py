@@ -4,7 +4,7 @@ import logging
 
 from maestrowf.datastructures.core import ParameterGenerator
 
-from .list import list_sample
+from scisample.list import list_sample
 
 
 LOGGER = logging.getLogger(__name__)

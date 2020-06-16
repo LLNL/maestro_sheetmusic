@@ -1,6 +1,5 @@
 """This file implements several sampling methods"""
 
-
 import logging
 
 LOGGER = logging.getLogger(__name__)

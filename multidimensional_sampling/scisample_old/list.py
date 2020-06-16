@@ -3,7 +3,7 @@
 import logging
 
 # https://www.python.org/dev/peps/pep-0328/ (multi-line import)
-from .utils import (
+from scisample.utils import (
     _log_assert, _validate_constants_parameters, _validate_parameters_dict)
 
 LOGGER = logging.getLogger(__name__)

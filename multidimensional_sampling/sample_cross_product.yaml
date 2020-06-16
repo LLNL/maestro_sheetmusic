@@ -1,4 +1,4 @@
-# run with 'maestro run -y --pgen ./scisample/pgen_sample.py sample_cross_product.yaml'
+# run with 'maestro run -y --pgen ./pgen_sample.py sample_cross_product.yaml'
 
 description:
     name: sample_list
