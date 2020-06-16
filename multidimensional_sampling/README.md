@@ -10,6 +10,9 @@
 1. object: sample(dict)
 1. object.samples
 1. make extensible
+1. add doc strings
+1. add optional maestro behavior
+1. add csv output
 
 # Multidimensional Sampling
 
