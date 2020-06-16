@@ -5,6 +5,12 @@
 1. support pgen and non-pgen sampling
 1. rename pgen_sample scisample
 
+# object thoughts:
+
+1. object: sample(dict)
+1. object.samples
+1. objeeeeeeeeeeeeeeeeeeeeeeecasd
+
 # Multidimensional Sampling
 
 This repo contains a pgen script for maestro that implements several
