@@ -36,7 +36,6 @@ class Samples:
                              "['sample_type'] to be defined in the yaml " +
                              "specification")
 
-
     def samples(self):
         if self._samples is not None:
             return self._samples
@@ -58,7 +57,6 @@ class Samples:
         self._samples = samples
         return samples
 
-
     def maestro_pgen(self):
         if not MAESTROWF:
             raise ValueError("maestrowf is not installed\n" +
@@ -67,7 +65,7 @@ class Samples:
             return self._pgen
 
         LOGGER.info("generating ParameterGenerator object")
-        
+
         pgen = ParameterGenerator()
         params = _convert_dict_to_maestro_params(self.samples())
 
