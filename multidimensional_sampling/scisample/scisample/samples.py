@@ -23,6 +23,7 @@ class Samples:
     """
 
     def __init__(self, samples_specification):
+        LOGGER.info("new Samples object")
         self.dictionary = samples_specification
         self._samples = None
         self._pgen = None
@@ -41,6 +42,7 @@ class Samples:
             return self._samples
 
         sample_type = self.sample_type
+        LOGGER.info("generating samples of type '" + sample_type + "'")
         if sample_type == "list":
             samples = list_sample(self.dictionary)
         elif sample_type == "cross_product":
@@ -52,6 +54,7 @@ class Samples:
         else:
             raise ValueError("The 'sample_type' of " + sample_type +
                              " is not supported.")
+        LOGGER.info("generated samples:\n" + str(samples))
         self._samples = samples
         return samples
 
@@ -63,8 +66,10 @@ class Samples:
         if self._pgen is not None:
             return self._pgen
 
+        LOGGER.info("generating ParameterGenerator object")
+        
         pgen = ParameterGenerator()
-        params = _convert_dict_to_maestro_params(self.samples)
+        params = _convert_dict_to_maestro_params(self.samples())
 
         for key, value in params.items():
             pgen.add_parameter(key, value["values"], value["label"])
