@@ -8,7 +8,7 @@ LOGGER = logging.getLogger(__name__)
 def _log_assert(test, msg):
     if not(test):
         LOGGER.error(msg)
-        raise ValueError(msg)
+        raise Exception(msg)
 
 
 def _validate_constants_parameters(sampling_dict):

@@ -27,7 +27,7 @@ def get_custom_generator(env, **kwargs):
             "sample_dictionary",
             env.find("SAMPLE_DICTIONARY").value)
     except ValueError:
-        raise ValueError("this pgen code requires SAMPLE_DICTIONARY " +
-                         "to be defined in the yaml specification")
+        raise Exception("this pgen code requires SAMPLE_DICTIONARY " +
+                        "to be defined in the yaml specification")
 
     return Samples(SAMPLE_DICTIONARY).maestro_pgen()

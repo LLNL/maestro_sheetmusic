@@ -40,9 +40,9 @@ class Samples:
             sample_type = self.dictionary["sample_type"]
             self.sample_type = sample_type
         except ValueError:
-            raise ValueError("this pgen code requires SAMPLE_DICTIONARY" +
-                             "['sample_type'] to be defined in the yaml " +
-                             "specification")
+            raise Exception("this pgen code requires SAMPLE_DICTIONARY" +
+                            "['sample_type'] to be defined in the yaml " +
+                            "specification")
 
     def samples(self):
         """
@@ -69,8 +69,8 @@ class Samples:
         Returns a maestrowf Parameter Generator object containing samples
         """
         if not MAESTROWF:
-            raise ValueError("maestrowf is not installed\n" +
-                             "the maestro_pgen is not supported")
+            raise Exception("maestrowf is not installed\n" +
+                            "the maestro_pgen is not supported")
         if self._pgen is not None:
             return self._pgen
 

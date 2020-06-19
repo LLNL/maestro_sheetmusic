@@ -80,8 +80,8 @@ def downselect(samples, sampling_dict):
         try:
             previous_samples = pd.read_csv(sampling_dict["previous_samples"])
         except ValueError:
-            raise ValueError("Error opening previous_samples datafile:" +
-                             sampling_dict["previous_samples"])
+            raise Exception("Error opening previous_samples datafile:" +
+                            sampling_dict["previous_samples"])
         sample_points = previous_samples[columns].values.tolist()
         new_sample_points = []
         new_sample_ids = []
@@ -118,7 +118,7 @@ def downselect(samples, sampling_dict):
                 j = i
                 d = dist
         if j == bign:
-            raise ValueError("Something went wrong!")
+            raise Exception("Something went wrong!")
         else:
             new_sample_points.append(candidates[j])
             sample_points.append(candidates[j])
