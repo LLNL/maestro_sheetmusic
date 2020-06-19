@@ -1,9 +1,6 @@
 # Work in progress:
 
-1. setting up a full package
-1. moving sample scripts to subdirectory
-1. support pgen and non-pgen sampling
-1. rename pgen_sample scisample
+1. update docs to format dictionaries correctly
 
 # object thoughts:
 
@@ -13,6 +10,7 @@
 1. add doc strings
 1. add optional maestro behavior
 1. add csv output
+1. eventually, everything can be a Study object
 
 # Multidimensional Sampling
 
