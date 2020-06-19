@@ -54,7 +54,7 @@ class Samples:
         sample_type = self.sample_type
         try:
             sample_function = SAMPLE_FUNCTIONS_DICT[sample_type]
-        except KeyError as e:
+        except KeyError:
             raise KeyError("The 'sample_type' of " + sample_type +
                            " is not supported.")
         LOGGER.info("generating samples of type '" +

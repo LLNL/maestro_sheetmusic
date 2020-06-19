@@ -61,4 +61,3 @@ def cross_product_sample(sampling_dict):
         samples = [constants]
     LOGGER.info("samples:\n%s", str(samples))
     return samples
-
