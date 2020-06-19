@@ -166,7 +166,8 @@ def random_sample(sampling_dict):
 
 def best_candidate_sample(sampling_dict, over_sample_rate=10):
     """
-    Return set of best candidate samples based on specification in sampling_dict.
+    Return set of best candidate samples based
+    on specification in sampling_dict.
 
     Prototype dictionary:
 

@@ -52,4 +52,3 @@ def column_list_sample(sampling_dict):
     else:
         samples.append(constants)
     return samples
-
