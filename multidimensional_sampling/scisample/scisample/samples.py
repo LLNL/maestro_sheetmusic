@@ -9,6 +9,12 @@ from scisample.cross_product import cross_product_sample
 from scisample.column_list import column_list_sample
 from scisample.utils import _convert_dict_to_maestro_params
 
+SAMPLE_FUNCTIONS_DICT = {
+    "list": list_sample,
+    "cross_product": cross_product_sample,
+    "column_list": column_list_sample
+}
+
 MAESTROWF = False
 with suppress(ModuleNotFoundError):
     from maestrowf.datastructures.core import ParameterGenerator
@@ -41,18 +47,14 @@ class Samples:
             return self._samples
 
         sample_type = self.sample_type
-        LOGGER.info("generating samples of type '" + sample_type + "'")
-        if sample_type == "list":
-            samples = list_sample(self.dictionary)
-        elif sample_type == "cross_product":
-            samples = cross_product_sample(self.dictionary)
-        elif sample_type == "column_list":
-            samples = column_list_sample(self.dictionary)
-        # elif sample_type == "best_candidate":
-        #     samples = best_candidate_sample(self.dictionary)
-        else:
-            raise ValueError("The 'sample_type' of " + sample_type +
-                             " is not supported.")
+        try:
+            sample_function = SAMPLE_FUNCTIONS_DICT[sample_type]
+        except KeyError as e:
+            raise KeyError(str(e) + "The 'sample_type' of " + sample_type +
+                           " is not supported.")
+        LOGGER.info("generating samples of type '" +
+                    sample_type + "'")
+        samples = sample_function(self.dictionary)
         LOGGER.info("generated samples:\n" + str(samples))
         self._samples = samples
         return samples
