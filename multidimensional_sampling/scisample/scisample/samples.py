@@ -7,12 +7,14 @@ from contextlib import suppress
 from scisample.list import list_sample
 from scisample.cross_product import cross_product_sample
 from scisample.column_list import column_list_sample
+from scisample.best_candidate import best_candidate_sample
 from scisample.utils import _convert_dict_to_maestro_params
 
 SAMPLE_FUNCTIONS_DICT = {
     "list": list_sample,
     "cross_product": cross_product_sample,
-    "column_list": column_list_sample
+    "column_list": column_list_sample,
+    "best_candidate": best_candidate_sample
 }
 
 MAESTROWF = False
@@ -43,6 +45,9 @@ class Samples:
                              "specification")
 
     def samples(self):
+        """
+        Returns a dictionary of samples
+        """
         if self._samples is not None:
             return self._samples
 
@@ -50,7 +55,7 @@ class Samples:
         try:
             sample_function = SAMPLE_FUNCTIONS_DICT[sample_type]
         except KeyError as e:
-            raise KeyError(str(e) + "The 'sample_type' of " + sample_type +
+            raise KeyError("The 'sample_type' of " + sample_type +
                            " is not supported.")
         LOGGER.info("generating samples of type '" +
                     sample_type + "'")
@@ -60,6 +65,9 @@ class Samples:
         return samples
 
     def maestro_pgen(self):
+        """
+        Returns a maestrowf Parameter Generator object containing samples
+        """
         if not MAESTROWF:
             raise ValueError("maestrowf is not installed\n" +
                              "the maestro_pgen is not supported")
