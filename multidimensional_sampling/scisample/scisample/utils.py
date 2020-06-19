@@ -1,4 +1,4 @@
-"""This file implements several sampling methods"""
+"""Utility functions"""
 
 import logging
 
