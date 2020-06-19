@@ -1,5 +1,3 @@
-"""This file implements several sampling methods"""
-
 import logging
 
 from contextlib import suppress
@@ -9,13 +7,6 @@ from scisample.cross_product import cross_product_sample
 from scisample.column_list import column_list_sample
 from scisample.best_candidate import best_candidate_sample
 from scisample.utils import _convert_dict_to_maestro_params
-
-SAMPLE_FUNCTIONS_DICT = {
-    "list": list_sample,
-    "cross_product": cross_product_sample,
-    "column_list": column_list_sample,
-    "best_candidate": best_candidate_sample
-}
 
 MAESTROWF = False
 with suppress(ModuleNotFoundError):
@@ -30,6 +21,15 @@ class Samples:
     Provides access to several different sampling methods
     """
 
+    SAMPLE_FUNCTIONS_DICT = {
+        "list": list_sample,
+        "cross_product": cross_product_sample,
+        "column_list": column_list_sample,
+        "best_candidate": best_candidate_sample
+    }
+    """dict: Dictionary of available sampling methods."""
+
+    
     def __init__(self, samples_specification):
         LOGGER.info("new Samples object")
         self.dictionary = samples_specification

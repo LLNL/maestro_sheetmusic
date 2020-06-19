@@ -1,5 +1,3 @@
-"""This file implements several sampling methods"""
-
 import logging
 import random
 
@@ -45,17 +43,17 @@ def downselect(samples, sampling_dict):
     """
     Downselect samples based on specification in sampling_dict.
 
-    Prototype dictionary:
+    Prototype dictionary::
 
-    num_samples: 30
-    previous_samples: samples.csv # optional
-    parameters:
-        X1:
-            min: 10
-            max: 50
-        X2:
-            min: 10
-            max: 50
+       num_samples: 30
+       previous_samples: samples.csv # optional
+       parameters:
+           X1:
+               min: 10
+               max: 50
+           X2:
+               min: 10
+               max: 50
     """
     _log_assert(
         PANDAS_PLUS,
