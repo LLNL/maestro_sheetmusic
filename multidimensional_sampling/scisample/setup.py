@@ -20,4 +20,9 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=[],
+    extras_require={
+        'maestrowf': ['maestrowf'],
+        'best_candidate': ['pandas', 'numpy', 'scipy']
+    }
 )
