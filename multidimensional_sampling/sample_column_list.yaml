@@ -1,4 +1,4 @@
-# run with 'maestro run -y --pgen ./scisample/pgen_sample.py sample_column_list.yaml'
+# run with 'maestro run -y --pgen `which pgen_scisample.py` sample_column_list.yaml'
 
 description:
     name: sample_list
@@ -8,7 +8,7 @@ env:
     variables:
         OUTPUT_PATH: ./output
         SAMPLE_DICTIONARY:
-            sample_type: column_list
+            type: column_list
             constants:
                 X3: 4
             parameters: |
