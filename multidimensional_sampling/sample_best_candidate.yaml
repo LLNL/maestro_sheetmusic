@@ -12,14 +12,14 @@ env:
             num_samples: 10
             # previous_samples: samples.csv # optional
             constants:
-                X3: 20
+                X1: 20
             parameters:
-                X1:
-                   min: 10
-                   max: 50
                 X2:
-                   min: 10
-                   max: 50
+                   min: 5
+                   max: 10
+                X3:
+                   min: 5
+                   max: 10
 study:
     - name: sample
       description: produce a sample

@@ -10,10 +10,10 @@ env:
         SAMPLE_DICTIONARY:
             type: list
             constants:
-                X3: 20
+                X1: 20
             parameters:
-                X1: [ 5, 10 ]
                 X2: [ 5, 10 ]
+                X3: [ 5, 10 ]
 
 study:
     - name: sample
