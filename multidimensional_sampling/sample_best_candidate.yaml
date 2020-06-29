@@ -2,27 +2,31 @@
 
 description:
     name: sample_list
-    description: simple sampling of multi variables (X1, X2, X3, X4)
+    description: simple sampling of multi variables (X1, X2, X3)
 
 env:
     variables:
         OUTPUT_PATH: ./output
         SAMPLE_DICTIONARY:
             type: best_candidate
-            num_samples: 10
+            num_samples: 5
             # previous_samples: samples.csv # optional
             constants:
                 X1: 20
             parameters:
-                X2:
-                   min: 5
-                   max: 10
-                X3:
-                   min: 5
-                   max: 10
+                x2:
+                    min: 5
+                    max: 10
+                x3:
+                    min: 5
+                    max: 10
+
 study:
     - name: sample
       description: produce a sample
       run:
           cmd: |
             echo "{$(X1), $(X2), $(X3)}" > out.txt
+
+
+

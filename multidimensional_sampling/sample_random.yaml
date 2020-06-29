@@ -14,10 +14,10 @@ env:
             constants:
                 X1: 20
             parameters:
-                x2:
+                X2:
                     min: 5
-                    max: 1
-                x3:
+                    max: 10
+                X3:
                     min: 5
                     max: 10
 
