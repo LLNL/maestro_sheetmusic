@@ -14,6 +14,7 @@ env:
             parameters:
                 X2: [ 5, 10 ]
                 X3: [ 5, 10 ]
+                X3: [ 5, 10 ]
 
 study:
     - name: sample
