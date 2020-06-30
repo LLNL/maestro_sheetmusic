@@ -1,4 +1,4 @@
-# run with 'maestro run -y --pgen `which pgen_scisample.py` sample_list.yaml'
+# run with 'maestro run -y --pgen `which pgen_scisample.py` sample_list_dup_test.yaml'
 
 description:
     name: sample_list
