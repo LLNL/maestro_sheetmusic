@@ -6,7 +6,7 @@ specification included in the env/variables section of any maestro
 specification. This yaml specification is a nested list named
 `SAMPLE_DICTIONARY`, and this repo contains several examples. 
 
-It requires the `scisample` [package](https://github.com/LLNL/scisample) 
+It requires the [`scisample` package](https://github.com/LLNL/scisample) 
 to be installed. Some sampling methods require additional packages to
 be installed. The `best_candidate` method requires `pandas`, `numpy`, and
 `scipy`. 
