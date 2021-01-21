@@ -1,18 +1,4 @@
-# Work in progress:
-
-1. update docs to format dictionaries correctly
-
-# object thoughts:
-
-1. object: sample(dict)
-1. object.samples
-1. make extensible
-1. add doc strings
-1. add optional maestro behavior
-1. add csv output
-1. eventually, everything can be a Study object
-
-# Multidimensional Sampling
+# Multidimensional sampling using scisample
 
 This repo contains a pgen script for maestro that implements several
 multidimensional sampling methods which are driven by a simple yaml
@@ -20,7 +6,12 @@ specification included in the env/variables section of any maestro
 specification. This yaml specification is a nested list named
 `SAMPLE_DICTIONARY`, and this repo contains several examples. 
 
-The pgen script is executed as follows
+It requires the `scisample` [package](https://github.com/LLNL/scisample) 
+to be installed. Some sampling methods require additional packages to
+be installed. The `best_candidate` method requires `pandas`, `numpy`, and
+`scipy`. 
+
+`maestro` using `scisample` is executed as follows:
  
 ```
 maestro run [-y] --pgen ./pgen_sample.py {sample_list.yaml},
@@ -35,14 +26,12 @@ where `[-y]` is an optional `auto-run` option, and `sample_list.yaml` is a maest
 1. `cross_product`: see `sample_cross_product.yaml`
 1. `best_candidate`: see `sample_best_candidate.yaml`
 
-Note: the `best_candidate` sampling mode currently requires that maestro is installed from scratch in a virtual environment (see Maestro [install documentation](https://github.com/LLNL/maestrowf#setting-up-your-python-environment)) and that the `pandas`, `scipy`, and `sklearn` packages be installed in that environment as well. Please see the [installing the necessary python packages](#installing-the-necessary-python-packages) section below. 
-
 ## The List Mode
 
 The `list` mode requires two items to be defined
 in `SAMPLE_DICTIONARY`:
 
-1. `sample_type` must equal `list`
+1. `type` must equal `list`
 2. `constants` or `parameters` must contain at least one variable
 and one value.
 
@@ -50,7 +39,7 @@ The following sample dictionary
 
 ```
 SAMPLE_DICTIONARY:
-    sample_type: list
+    type: list
     constants:
         X3: 20
     parameters:
@@ -78,7 +67,7 @@ global.parameters:
 The `column_list` mode requires two items to be defined
 in`SAMPLE_DICTIONARY`:
 
-1. `sample_type` must equal `column_list`
+1. `type` must equal `column_list`
 2. `constants` or `parameters` must contain at least one variable
 and one value.
 
@@ -86,7 +75,7 @@ The following sample dictionary
 
 ```
 SAMPLE_DICTIONARY:
-    sample_type: column_list
+    type: column_list
     constants:
         X3: 20
     parameters: |
@@ -115,7 +104,7 @@ global.parameters:
 The `cross_product` mode requires two items to be defined
 in`SAMPLE_DICTIONARY`:
 
-1. `sample_type` must equal `cross_product`
+1. `type` must equal `cross_product`
 2. `constants` or `parameters` must contain at least one variable
 and one value.
 
@@ -123,7 +112,7 @@ The following sample dictionary
 
 ```
 SAMPLE_DICTIONARY:
-    sample_type: cross_product
+    type: cross_product
     constants:
         X4: 20
     parameters:
@@ -156,7 +145,7 @@ global.parameters:
 The `cross_product` mode requires three items to be defined
 in`SAMPLE_DICTIONARY`:
 
-1. `sample_type` must equal `best_candidate`
+1. `type` must equal `best_candidate`
 1. `num_samples` must contain an integer
 2. `parameters` must contain at least one variable
 and one range.
@@ -165,7 +154,7 @@ The following sample dictionary
 
 ```
         SAMPLE_DICTIONARY:
-            sample_type: best_candidate
+            type: best_candidate
             num_samples: 4
             # previous_samples: samples.csv # optional
             constants:
@@ -193,56 +182,3 @@ global.parameters:
         label: X3.%%
 
 ```
-
-## Installing the necessary python packages
-
-The `best_candidate` sampling mode currently requires that maestro is installed from scratch in a virtual environment (see Maestro [install documentation](https://github.com/LLNL/maestrowf#setting-up-your-python-environment)) and that the `pandas`, `scipy`, and `sklearn` packages be installed in that environment as well. Below are the steps to take: 
-
-```
-# set install locations:
-MAESTRO_INSTALL_DIRECTORY=${HOME}/maestro_install
-MAESTRO_SHEETMUSIC_DIRECTORY=${HOME}/maestro_sheetmusic_install
-
-# Deactivate any current virtual environments.
-deactivate 
-
-# Clone a fresh copy of the maestro source.
-# Note: this can not be in the maestro_sheetmusic directory.
-mkdir ${MAESTRO_INSTALL_DIRECTORY}
-cd ${MAESTRO_INSTALL_DIRECTORY}
-date > maestro_install_start.txt
-git clone https://github.com/LLNL/maestrowf.git 
-
-# Set up and activate a new virtual environment.
-cd maestrowf
-python3 -m venv venv
-source venv/bin/activate
-
-# Install maestro.
-pip install -r requirements.txt
-pip install -e .
-
-# Install pandas, scipy, and sklearn
-pip install pandas
-pip install scipy
-pip install sklearn
-
-# Timestamp #2
-cd ${MAESTRO_INSTALL_DIRECTORY}
-date > maestro_install_end.txt
-
-# Clone maestro sheetmusic
-mkdir ${MAESTRO_SHEETMUSIC_DIRECTORY}
-cd ${MAESTRO_SHEETMUSIC_DIRECTORY}
-git clone https://github.com/LLNL/maestro_sheetmusic.git 
-
-# Run smart_sampler_demo
-cd ${MAESTRO_SHEETMUSIC_DIRECTORY}/maestro_sheetmusic/multidimensional_sampling
-maestro run -y --pgen ./pgen_sample.py sample_best_candidate.yaml
-
-# Timestamp #3
-cd ${MAESTRO_INSTALL_DIRECTORY}
-date > maestro_sheetmusic_run_end.txt
-echo done
-```
-
