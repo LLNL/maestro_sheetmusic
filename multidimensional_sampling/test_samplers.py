@@ -12,6 +12,7 @@ Tests for codepy/maestro integration:
 #. CustomSampler
 """
 # @TODO: read required output from yaml file, run grep, fail if appropriate, loop through files
+# @TODO: move test_sampl* to tests directory
 
 import os
 import shutil
