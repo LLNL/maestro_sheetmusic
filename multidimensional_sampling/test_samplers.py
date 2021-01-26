@@ -19,11 +19,11 @@ import shutil
 import tempfile
 import unittest
 import time
+import glob
 from contextlib import suppress
 
 import pytest
 import yaml
-
 
 class TestScisampleMaestroPgen(unittest.TestCase):
     """
@@ -34,8 +34,7 @@ class TestScisampleMaestroPgen(unittest.TestCase):
         self.tmp_dir = tempfile.mkdtemp()
 
     def tearDown(self):
-        pass
-        #shutil.rmtree(self.tmp_dir, ignore_errors=True)
+        shutil.rmtree(self.tmp_dir, ignore_errors=True)
 
     # @TODO: For these tests, we should test that all runs have finished.
     # @TODO: Currently, `check_status` succeeds if at least one run is finished.
@@ -66,7 +65,9 @@ class TestScisampleMaestroPgen(unittest.TestCase):
         And I run each one through maestro,
         Then I should get the expected output defined in the 'sample_*.yaml' files
         """
-        sample_files = ['sample_list.yaml']
+        sample_files = glob.glob('sample*.yaml')
+        # sample_files = glob.glob('sample*ran*.yaml')
+        print(f"sample_files: {sample_files}")
         output_dir = 'output'
         studies_directory = os.path.join(self.tmp_dir, output_dir)
 
@@ -75,6 +76,10 @@ class TestScisampleMaestroPgen(unittest.TestCase):
                 os.path.join(self.script_path, sample_file),
                 os.path.join(self.tmp_dir, sample_file))
             os.chdir(self.tmp_dir)
+
+            with open(sample_file, 'r') as _file:
+                yaml_data = yaml.safe_load(_file)
+            # print("yaml_data:\n", yaml_data['outputs'])
 
             execute_string = (
                 f"maestro run -y --pgen `which pgen_scisample.py` "
@@ -94,15 +99,31 @@ class TestScisampleMaestroPgen(unittest.TestCase):
 
             output_files_pattern = os.path.join(
                 self.tmp_dir,'output','*','sample','*','out.txt')
-            execute_string = (f"ls {output_files_pattern}")
-            print(f"execute_string: {execute_string}")
-            output = os.popen(execute_string).read()
-            print(f"output:\n{output}") 
-            pass
-        self.assertEqual(0, 1)
+            
+            success = True
+            for output in yaml_data['outputs']:
+                # print("output:", output)
+                execute_string = (f"grep -e '{output}' {output_files_pattern}")
+                stream = os.popen(execute_string)
+                result = stream.read()
+                exit_code = stream.close()
+                if exit_code:
+                    print(f"\nERROR: After running the `{sample_file} test")
+                    print("ERROR: I ran the following grep command:\n    ", execute_string)
+                    print("ERROR: I expected one or more matches, but the output was:\n    ", 
+                        result)
+                    print("ERROR: The error code was", exit_code)
+                    success = False
+            if success:
+                print(f"SUCCESS: The {sample_file} ran sucessfully.")
+            shutil.rmtree(studies_directory, ignore_errors=True)
+
+        self.assertTrue(success)
 
 
-
+# result = subprocess.run(['ls', '-l'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+# print(result.stdout)
+# print(result.stderr)
 
 
 #         yaml_text = """
@@ -701,3 +722,33 @@ class TestScisampleMaestroPgen(unittest.TestCase):
 #         self.assertEqual(samples[0]['X3'], 5)
 #         self.assertEqual(samples[1]['X2'], 10)
 #         self.assertEqual(samples[1]['X3'], 10)
+
+
+def read_yaml(filename):
+    """
+    Read a yaml file return its contents as a dictionary.
+
+    :param filename: Name of file to read.
+    :returns: Dictionary of file contents.
+    """
+    try:
+        with open(filename, 'r') as _file:
+            content = yaml.safe_load(_file)
+        return content
+    except yaml.YAMLError as e:
+        LOG.error(f"Error reading yaml from {filename}")
+        lines = []
+        # Disable the document start error, since we tend not to use the "---"
+        # at the start of the yaml file.
+        yaml_config = yamllint.config.YamlLintConfig(textwrap.dedent("""
+        extends: default
+
+        rules:
+            document-start: disable
+        """))
+        with open(filename, 'r') as _file:
+            for p in yamllint.linter.run(_file, yaml_config):
+                lines.append([f"{p.line}:{p.column}", p.desc, p.rule])
+        for line in tabulate.tabulate(lines).splitlines():
+            LOG.error(line)
+        raise e
