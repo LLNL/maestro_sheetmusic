@@ -25,6 +25,7 @@ where `[-y]` is an optional `auto-run` option, and `sample_list.yaml` is a maest
 1. `column_list`: see `sample_column_list.yaml`
 1. `cross_product`: see `sample_cross_product.yaml`
 1. `best_candidate`: see `sample_best_candidate.yaml`
+1. `random`: see `sample_random.yaml`
 
 ## The List Mode
 
@@ -142,7 +143,7 @@ global.parameters:
 
 ## The Best Candidate Mode
 
-The `cross_product` mode requires three items to be defined
+The `best_candidate` mode requires three items to be defined
 in`SAMPLE_DICTIONARY`:
 
 1. `type` must equal `best_candidate`
@@ -182,3 +183,46 @@ global.parameters:
         label: X3.%%
 
 ```
+
+## The Random Mode
+
+The `random` mode requires three items to be defined
+in`SAMPLE_DICTIONARY`:
+
+1. `type` must equal `random`
+1. `num_samples` must contain an integer
+2. `parameters` must contain at least one variable
+and one range.
+
+The following sample dictionary
+
+```
+        SAMPLE_DICTIONARY:
+            type: random
+            num_samples: 4
+            constants:
+                X3: 20
+            parameters:
+                X1:
+                   min: 10
+                   max: 50
+                X2:
+                   min: 10
+                   max: 50
+```
+will produce different results each time it is run. Below is an example of an equivalent Maestro global.parameter block:
+
+```
+global.parameters:
+    X1:
+        values: [48.70164719044195, 10.286343604507039, 22.19704244879045, 28.491627750335073]
+        label: X1.%%
+    X2:
+        values: [29.705997207402138, 36.7811077888954, 11.310907646035941, 48.554124837450594]
+        label: X2.%%
+    X3:
+        values: [20, 20, 20, 20]
+        label: X3.%%
+
+```
+
