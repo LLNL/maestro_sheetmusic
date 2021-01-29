@@ -1,0 +1,7 @@
+maestrowf
+numpy
+pandas
+pytest
+scipy
+
+git+https://github.com/LLNL/scisample
