@@ -1,7 +1,6 @@
-maestrowf
-numpy
 pandas
-pytest
+numpy
 scipy
+maestrowf
+scisample
 
-git+https://github.com/LLNL/scisample
