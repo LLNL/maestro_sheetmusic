@@ -228,3 +228,32 @@ global.parameters:
 
 ```
 
+# Testing
+
+The integration of `scisample` with `maestrowf` can be tested as follows:
+
+```
+# cd into `multidimensional_sampling` directory
+cd maestro_sheetmusic/multidimensional_sampling
+
+# deactivate any existing python virtual environments
+deactivate
+
+# delete the `venv` virtual environment
+/bin/rm -rf venv
+
+# create a new `venv` virtual environment
+python3 -m venv venv
+
+# activate virtual environment
+source venv/bin/activate
+
+# install `maestro`, `scisample`, and dependencies
+pip install -r requirements
+
+# install local version of pytest
+pip install pytest
+
+# run local version of pytest (tests take ~30 seconds to run)
+~/venv/bin/pytest
+```
