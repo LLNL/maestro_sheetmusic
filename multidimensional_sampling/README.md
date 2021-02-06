@@ -11,6 +11,8 @@ to be installed. Some sampling methods require additional packages to
 be installed. The `best_candidate` method requires `pandas`, `numpy`, and
 `scipy`. 
 
+`scisample` can be installed with `pip install scisample`.
+
 `maestro` using `scisample` is executed as follows:
  
 ```
