@@ -1,13 +1,15 @@
 # Multidimensional sampling using scisample
 
-This repo demonstrates a pgen script for `maestrowf` that implements several
-multidimensional sampling methods which are driven by simple yaml
-specifications included in the env/variables section of any maestro
-specification file. This yaml specification is a nested list named
-`SAMPLE_DICTIONARY`, and this repo contains several examples. 
+This repo contains several yaml specifications that implement
+multidimensional sampling methods from the `scisample` package.
+The sampling parameters are defined in the env/variables section 
+of a given maestro specification. This yaml specification is a nested 
+list named `SAMPLE_DICTIONARY`.
 
 It requires the [`scisample` package](https://github.com/LLNL/scisample) 
-to be installed. Some sampling methods require additional packages to
+to be installed. The `scisample` provides a `pgen_scisample.py` script 
+that can be easily used with maestro with "--pgen \`which pgen_scisample.py\`". 
+Some sampling methods require additional packages to
 be installed. The `best_candidate` method requires `pandas`, `numpy`, and
 `scipy`. 
 
@@ -47,7 +49,7 @@ and one value.
 
 The following sample dictionary
 
-```
+```yaml
 SAMPLE_DICTIONARY:
     type: list
     constants:
@@ -56,9 +58,9 @@ SAMPLE_DICTIONARY:
         X1: [ 5, 10 ]
         X2: [ 5, 10 ]
 ```
-is equivalent to the following Maestro global.parameter block:
+is equivalent to the following Maestro `global.parameter` block:
 
-```
+```yaml
 global.parameters:
     X1:
         values: [5, 10]
@@ -69,7 +71,6 @@ global.parameters:
     X3:
         values: [20, 20]
         label: X3.%%
-
 ```
 
 ## The Column List Mode
@@ -93,9 +94,9 @@ SAMPLE_DICTIONARY:
         5   5
         10  10
 ```
-is also equivalent to the following Maestro global.parameter block:
+is also equivalent to the following Maestro `global.parameter` block:
 
-```
+```yaml
 global.parameters:
     X1:
         values: [5, 10]
@@ -106,7 +107,6 @@ global.parameters:
     X3:
         values: [20, 20]
         label: X3.%%
-
 ```
 
 ## The Cross Product Mode
@@ -120,7 +120,7 @@ and one value.
 
 The following sample dictionary
 
-```
+```yaml
 SAMPLE_DICTIONARY:
     type: cross_product
     constants:
@@ -130,9 +130,9 @@ SAMPLE_DICTIONARY:
         X2: [ 5, 10 ]
         X3: [ 5, 10 ]
 ```
-is also equivalent to the following Maestro global.parameter block:
+is also equivalent to the following Maestro `global.parameter` block:
 
-```
+```yaml
 global.parameters:
     X1:
         values: [5, 5, 5, 5, 10, 10, 10, 10]
@@ -146,9 +146,7 @@ global.parameters:
     X4:
         values: [20, 20, 20, 20, 20, 20, 20, 20]
         label: X4.%%
-
 ```
-
 
 ## The Best Candidate Mode
 
@@ -162,24 +160,25 @@ and one range.
 
 The following sample dictionary
 
+```yaml
+SAMPLE_DICTIONARY:
+    type: best_candidate
+    num_samples: 4
+    # previous_samples: samples.csv # optional
+    constants:
+        X3: 20
+    parameters:
+        X1:
+           min: 10
+           max: 50
+        X2:
+           min: 10
+           max: 50
 ```
-        SAMPLE_DICTIONARY:
-            type: best_candidate
-            num_samples: 4
-            # previous_samples: samples.csv # optional
-            constants:
-                X3: 20
-            parameters:
-                X1:
-                   min: 10
-                   max: 50
-                X2:
-                   min: 10
-                   max: 50
-```
-will produce different results each time it is run. Below is an example of an equivalent Maestro global.parameter block:
+will produce different results each time it is run. Below is an example of an 
+equivalent Maestro `global.parameter` block:
 
-```
+```yaml
 global.parameters:
     X1:
         values: [48.70164719044195, 10.286343604507039, 22.19704244879045, 28.491627750335073]
@@ -190,7 +189,6 @@ global.parameters:
     X3:
         values: [20, 20, 20, 20]
         label: X3.%%
-
 ```
 
 ## The Random Mode
@@ -205,23 +203,23 @@ and one range.
 
 The following sample dictionary
 
-```
-        SAMPLE_DICTIONARY:
-            type: random
-            num_samples: 4
-            constants:
-                X3: 20
-            parameters:
-                X1:
-                   min: 10
-                   max: 50
-                X2:
-                   min: 10
-                   max: 50
+```yaml
+SAMPLE_DICTIONARY:
+    type: random
+    num_samples: 4
+    constants:
+        X3: 20
+    parameters:
+        X1:
+           min: 10
+           max: 50
+        X2:
+           min: 10
+           max: 50
 ```
 will produce different results each time it is run. Below is an example of an equivalent Maestro global.parameter block:
 
-```
+```yaml
 global.parameters:
     X1:
         values: [48.70164719044195, 10.286343604507039, 22.19704244879045, 28.491627750335073]
@@ -232,7 +230,6 @@ global.parameters:
     X3:
         values: [20, 20, 20, 20]
         label: X3.%%
-
 ```
 
 # Testing
