@@ -1,0 +1,7 @@
+*~
+scisample/build/
+scisample/dist/
+scisample/scisample.egg-info/
+
+
+__pycache__

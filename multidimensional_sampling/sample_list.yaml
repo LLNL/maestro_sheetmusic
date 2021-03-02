@@ -1,0 +1,28 @@
+# pip: run with 'maestro run -y --pgen `which pgen_scisample.py` sample_list.yaml'
+# pyenv: run with 'maestro run -y --pgen pgen_scisample.py sample_list.yaml'
+
+description:
+    name: sample_list
+    description: simple sampling of multi variables (X1, X2, X3)
+
+env:
+    variables:
+        OUTPUT_PATH: ./output
+        SAMPLE_DICTIONARY:
+            type: list
+            constants:
+                X1: 20
+            parameters:
+                X2: [ 5, 10 ]
+                X3: [ 5, 10 ]
+
+study:
+    - name: sample
+      description: produce a sample
+      run:
+          cmd: |
+            echo "{$(X1), $(X2), $(X3)}" > out.txt
+
+outputs:
+    - '{20, 5, 5}'
+    - '{20, 10, 10}'

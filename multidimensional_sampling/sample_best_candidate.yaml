@@ -1,0 +1,33 @@
+# pip: run with 'maestro run -y --pgen `which pgen_scisample.py` sample_best_candidate.yaml'
+# pyenv: run with 'maestro run -y --pgen pgen_scisample.py sample_best_candidate.yaml'
+
+description:
+    name: sample_list
+    description: simple sampling of multi variables (X1, X2, X3)
+
+env:
+    variables:
+        OUTPUT_PATH: ./output
+        SAMPLE_DICTIONARY:
+            type: best_candidate
+            num_samples: 5
+            # previous_samples: samples.csv # optional
+            constants:
+                X1: 20
+            parameters:
+                X2:
+                    min: 5
+                    max: 10
+                X3:
+                    min: 5
+                    max: 10
+
+study:
+    - name: sample
+      description: produce a sample
+      run:
+          cmd: |
+            echo "{$(X1), $(X2), $(X3)}" > out.txt
+
+outputs:
+    - '{20.0, [0-9]*\.[0-9]*, [0-9]*\.[0-9]*}'
