@@ -2,7 +2,7 @@
 # pyenv: run with 'maestro run -y --pgen pgen_scisample.py sample_cross_product.yaml'
 
 description:
-    name: sample_list
+    name: sample_cross_product
     description: simple sampling of multi variables (X1, X2, X3, X4)
 
 env:
