@@ -2,7 +2,7 @@
 # pyenv: run with 'maestro run -y --pgen pgen_scisample.py sample_column_list.yaml'
 
 description:
-    name: sample_list
+    name: sample_column_list
     description: simple sampling of multi variables (X1, X2, X3)
 
 env:
